@@ -29,7 +29,6 @@ jobs:
         unzip commandlinetools-linux-6858069_latest.zip -d android-sdk
         yes | android-sdk/cmdline-tools/bin/sdkmanager --sdk_root=android-sdk "platforms;android-29" "build-tools;29.0.3" "ndk;21.3.6528147"
         python -m pip install --upgrade pip
-        pip install -r kivy numpy requests
         pip install python-for-android==2023.9.16 Cython
 
     - name: Build APK
