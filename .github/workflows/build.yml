@@ -19,18 +19,10 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y openjdk-11-jdk
-        sudo apt install android-sdk
-        sudo apt install python3
+        sudo apt-get install python3
+        pip3 install --user --upgrade buildozer
+        sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+        pip3 install --user --upgrade Cython==0.29.33
 
-        python -m pip install --upgrade pip
-        pip install python-for-android Cython
-
-    - name: Build APK
-      run: |
-        p4a apk --private . --package=Test --name "Test" --version 0.1 --bootstrap=sdl2 --requirements=kivy,numpy,requests --arch=armeabi-v7a
-      env:
-        P4A_RELEASE_KEYALIAS: ${{ secrets.P4A_RELEASE_KEYALIAS }}
-        P4A_RELEASE_KEYSTORE_PASSWD: ${{ secrets.P4A_RELEASE_KEYSTORE_PASSWD }}
-        P4A_RELEASE_KEYALIAS_PASSWD: ${{ secrets.P4A_RELEASE_KEYALIAS_PASSWD }}
+        /root/.local/builozer android debug
 
