@@ -16,16 +16,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python environment
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y openjdk-11-jdk
         sudo apt install android-sdk
+        sudo apt install python3
 
         python -m pip install --upgrade pip
         pip install python-for-android Cython
