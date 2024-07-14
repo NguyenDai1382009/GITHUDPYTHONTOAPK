@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  Build Python to APK:
+  Build-Python-to-APK:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
