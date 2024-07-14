@@ -22,4 +22,5 @@ jobs:
         run: |
           export PATH=$PATH:~/.local/bin/
           sudo dpkg --add-architecture i386
+          sudo apt-get install build-essential ccache git lib32z1 libncurses5:i386 libstdc++6:i386 python2.7 openjdk-7-jdk unzip zlib1g-dev zlib1g:i386
           buildozer -v android debug
