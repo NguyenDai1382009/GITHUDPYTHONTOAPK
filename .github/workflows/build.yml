@@ -19,12 +19,17 @@ jobs:
     - name: Set up Python environment
       uses: actions/setup-python@v2
       with:
-        python-version: '3.9' # Specify the Python version you need
+        python-version: '3.9'
 
     - name: Install dependencies
       run: |
+        sudo apt-get update
+        sudo apt-get install -y openjdk-11-jdk
+        wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
+        unzip commandlinetools-linux-6858069_latest.zip -d android-sdk
+        yes | android-sdk/cmdline-tools/bin/sdkmanager --sdk_root=android-sdk "platforms;android-29" "build-tools;29.0.3" "ndk;21.3.6528147"
         python -m pip install --upgrade pip
-        pip install python-for-android Cython
+        pip install python-for-android==2021.10.25 Cython
 
     - name: Build APK
       run: |
@@ -33,3 +38,7 @@ jobs:
         P4A_RELEASE_KEYALIAS: ${{ secrets.P4A_RELEASE_KEYALIAS }}
         P4A_RELEASE_KEYSTORE_PASSWD: ${{ secrets.P4A_RELEASE_KEYSTORE_PASSWD }}
         P4A_RELEASE_KEYALIAS_PASSWD: ${{ secrets.P4A_RELEASE_KEYALIAS_PASSWD }}
+
+    - name: Output Gradle logs if build fails
+      if: failure()
+      run: cat /home/runner/.local/share/python-for-android/dists/unnamed_dist_1/build/build.log
